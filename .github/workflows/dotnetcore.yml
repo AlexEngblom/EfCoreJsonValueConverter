@@ -41,10 +41,10 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9
 
       - name: GitVersion Output
-        run: echo "NuGetVersionV2:${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+        run: echo "NuGetVersion:${{ steps.gitversion.outputs.nuGetVersion }}"
           
       - name: Create packages
-        run: dotnet pack -p:PackageVersion=${{steps.gitversion.outputs.nuGetVersionV2}}
+        run: dotnet pack -p:PackageVersion=${{steps.gitversion.outputs.nuGetVersion}} -o ./
         
       - name: Check directory
         run: ls
