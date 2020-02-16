@@ -46,8 +46,11 @@ jobs:
       - name: Create packages
         run: dotnet pack -o ./ -p:PackageVersion=${{steps.gitversion.outputs.nuGetVersion}}
         
-      - name: Check dotnet
-        run: dotnet --version
-        
       - name: Check directory
         run: ls
+      
+      - name: Publish NuGet
+        run: dotnet nuget push ./*.nupkg 
+          --api-key ${{ secrets.NUGET_API_KEY }}
+          --source https://apiint.nugettest.org/v3/index.json
+          --no-symbols true
