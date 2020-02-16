@@ -44,7 +44,10 @@ jobs:
         run: echo "NuGetVersion:${{ steps.gitversion.outputs.nuGetVersion }}"
           
       - name: Create packages
-        run: dotnet pack -o .\ -p:PackageVersion=${{steps.gitversion.outputs.nuGetVersion}}
+        run: dotnet pack -o ./ -p:PackageVersion=${{steps.gitversion.outputs.nuGetVersion}}
+        
+      - name: Check dotnet
+        run: dotnet --version
         
       - name: Check directory
         run: ls
