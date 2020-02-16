@@ -14,7 +14,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.100
+        dotnet-version: 3.1.101
 
     - name: Build with dotnet
       run: dotnet build --configuration Release
@@ -42,9 +42,17 @@ jobs:
 
       - name: GitVersion Output
         run: echo "NuGetVersion:${{ steps.gitversion.outputs.nuGetVersion }}"
-          
+        
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+        
       - name: Create packages
         run: dotnet pack -o ./ -p:PackageVersion=${{steps.gitversion.outputs.nuGetVersion}}
+        
+      - name: Check dotnet tools
+        run: dotnet --version
         
       - name: Check directory
         run: ls
